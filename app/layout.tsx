@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ReactQueryProvider from "@/components/provider/page";
 
 export const metadata: Metadata = {
   title: "YourStats",
@@ -17,7 +17,9 @@ export default function RootLayout({
       <body
         className={` bg-[#FFF1E6] antialiased overflow-hidden`}
       >
-        {children}
+        <ReactQueryProvider>
+          {children}
+          </ReactQueryProvider>
       </body>
     </html>
   );

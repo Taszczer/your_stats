@@ -1,15 +1,20 @@
 'use client'
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoMdSearch  } from "react-icons/io";
 
 export default function Input() {
 
     const [value, setValue] = useState<string>('')
+    const router = useRouter()
 
     const getUserID = (event: { key: string }) => {
         if (event.key === "Enter") {
-            console.log(value)
+            if (value) {
+                console.log('sigma')
+                router.push(`/stats?id=${value}`)
+            }
         }
     }
 

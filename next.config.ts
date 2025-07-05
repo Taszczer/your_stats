@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+	async rewrites() {
+		return [
+			{
+        source: '/api/steam/:path*',
+        destination: 'https://api.steampowered.com/:path*', 
+			},
+		]
+	},
 };
 
 export default nextConfig;
