@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
 			},
 		]
 	},
+	images: {
+		remotePatterns:[new URL('https://avatars.steamstatic.com/**')]
+	}
 };
 
 export default nextConfig;
