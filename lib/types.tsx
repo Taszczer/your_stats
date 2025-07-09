@@ -15,7 +15,25 @@ export type User = {
     realname?: string;
 }
 
-export type steamApiUserResponse = {
+export type userResponse = {
+    response: {
+        players: User[]
+    }
+}
+
+export type UserFriends = {
+    steamid: string;
+    relationship: "friend";
+    friend_since: number;
+}
+
+export type userFriendsResponse = {
+    friendslist: {
+        friends: UserFriends[]
+    }
+}
+
+export type oneFriendResponse = {
     response: {
         players: User[]
     }
