@@ -15,6 +15,19 @@ export type User = {
     realname?: string;
 }
 
+export type userStat = {
+    name: string;
+    value: number;
+}
+
+export type userStatsResponse = {
+    playerstats: {
+        achievements: any[]
+        gameName: string;
+        stats: userStat[]
+    }
+}
+
 export type userResponse = {
     response: {
         players: User[]
@@ -38,3 +51,5 @@ export type oneFriendResponse = {
         players: User[]
     }
 }
+
+export type userStats = userStatsResponse['playerstats'];

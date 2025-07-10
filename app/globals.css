@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Angkor&family=Madimi+One&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+@import 'material-symbols/outlined.css';
 @import "tailwindcss";
 
 @font-face {
