@@ -67,7 +67,7 @@ export default function SideBar() {
                 user.personaState = 'Offline';
         }
         return (
-            <div className="flex flex-col items-center h-screen w-[360px] rounded-tr-[24px] rounded-br-[24px] border-r-4 border-black bg-[#CC9614] relative overflow-hidden">
+            <div className="flex flex-col items-center h-screen min-w-[360px] rounded-tr-[24px] rounded-br-[24px] border-r-4 border-black bg-[#CC9614] relative overflow-hidden">
                 <div className="flex flex-col gap-7 items-center h-full w-full p-6">
                     <div className="flex flex-col text-white text-center gap-5">
                         <Image
