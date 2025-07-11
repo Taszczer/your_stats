@@ -2,6 +2,7 @@
 
 import CustomPieChart from "@/components/PieChart"
 import { userStats, userStatsResponse } from "@/lib/types"
+import { weaponIdMap } from "@/lib/weaponIdMap"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 
@@ -17,6 +18,9 @@ export default function CsStats() {
     })
     if (data) {
         const user: userStats = data.playerstats
+
+        const favWeapon = user.stats[89].value;
+        const nameOfTheWeapon = weaponIdMap[favWeapon]
         
         const winrate = Math.floor(user.stats[105].value / user.stats[106].value * 100)
         const winRateColors = ['#CC9614', '#F8E4C7']
@@ -42,6 +46,12 @@ export default function CsStats() {
         ]
         const headShotKillsTextColor = '#202020'
 
+        const betterSideColors = ['#202020', '#CC9614']
+        const betterSideData = [
+            { value: user.stats[82].value },
+            { value: user.stats[83].value }
+        ]
+
         return (
             <>
                 <div className="flex flex-col items-center gap-8 px-4 pt-12 w-full">
@@ -49,7 +59,7 @@ export default function CsStats() {
                         <div className="flex flex-col gap-8">
                             <div className="flex flex-col bg-white min-w-[328px] max-w-[440px] h-[440px] p-6 gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]">
                                 <h1 className="w-full text-center text-xl font-['Angkor'] text-[#CC9614]">Total stats</h1>
-                                <ol className="flex flex-col gap-4 text-xl font-medium just">
+                                <ol className="flex flex-col gap-4 text-xl font-medium ">
                                     <li className="flex flex-row gap-3">
                                         <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">dropper_eye</span></div>
                                         Kills: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{user.stats[0].value}</span>
@@ -123,7 +133,7 @@ export default function CsStats() {
                                 
                                 <div className="flex flex-col gap-4 w-full items-center">
                                     <h1 className="text-xl font-['Madimi_One'] text-black">Win Rate:</h1>
-                                    <CustomPieChart percentage={winrate} colors={winRateColors} data={winRateData} textColor={winRateTextColor} />
+                                    <CustomPieChart percentage={winrate.toString() + ' %'} colors={winRateColors} data={winRateData} textColor={winRateTextColor} size={200} innerRadius={60} outerRadius={90} />
                                     <div className="flex flex-row gap-3">
                                         <div className="flex flex-row items-center justify-center gap-1">
                                             <div className="w-4 h-4 bg-[#CC9614] rounded-full"></div>
@@ -139,7 +149,7 @@ export default function CsStats() {
 
                                 <div className="flex flex-col gap-4 w-full items-center">
                                     <h1 className="text-xl font-['Madimi_One'] text-black">Hitted shots:</h1>
-                                    <CustomPieChart percentage={hittedShots} colors={hittedShotsColors} data={hittedShotsData} textColor={hittedShotsTextColor} />
+                                    <CustomPieChart percentage={hittedShots.toString() + ' %'} colors={hittedShotsColors} data={hittedShotsData} textColor={hittedShotsTextColor} size={200} innerRadius={60} outerRadius={90} />
                                     <div className="flex flex-row gap-3">
                                         <div className="flex flex-row items-center justify-center gap-1">
                                             <div className="w-4 h-4 bg-[#A7780C] rounded-full"></div>
@@ -155,7 +165,7 @@ export default function CsStats() {
 
                                 <div className="flex flex-col gap-4 w-full items-center">
                                     <h1 className="text-xl font-['Madimi_One'] text-black">Headshot Kill:</h1>
-                                    <CustomPieChart percentage={headShotKills} colors={headShotKillsColors} data={headShotKillsData} textColor={headShotKillsTextColor} />
+                                    <CustomPieChart percentage={headShotKills.toString() + ' %'} colors={headShotKillsColors} data={headShotKillsData} textColor={headShotKillsTextColor} size={200} innerRadius={60} outerRadius={90} />
                                     <div className="flex flex-row gap-3">
                                         <div className="flex flex-row items-center justify-center gap-1">
                                             <div className="w-4 h-4 bg-[#202020] rounded-full"></div>
@@ -170,7 +180,65 @@ export default function CsStats() {
                                 </div>
                             </div>
 
-                            <div></div>
+                            <div className="flex flex-col bg-white h-full max-w-[900px] rounded-3xl border-black border-t-[1px] border-r-4 border-b-4 border-l-[1px] p-6 gap-4">
+                                <h1 className="w-full text-center text-xl font-['Angkor'] text-[#CC9614]">Last match stats: </h1>
+                                <div className="flex flex-row px-10">
+                                    <ol className="flex flex-col gap-4 text-xl font-medium w-full">
+                                        <li className="flex flex-row gap-3">
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">dropper_eye</span></div>
+                                            Kills: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{user.stats[86].value}</span>
+                                        </li>
+                                        <li className="flex flex-row gap-3">
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">payments</span></div>
+                                            Money spent: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{user.stats[94].value} $</span>
+                                        </li>
+                                        <li className="flex flex-row gap-3">
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">crown</span></div>
+                                            Match wins: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{user.stats[84].value}</span>
+                                        </li>
+                                        <li className="flex flex-row gap-3">
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">social_leaderboard</span></div>
+                                            MVPs: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{user.stats[88].value}</span>
+                                        </li>
+                                        <li className="flex flex-row gap-3">
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">humidity_low</span></div>
+                                            Dealt damage: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{user.stats[93].value}</span>
+                                        </li>
+                                        <li className="flex flex-row gap-3">
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">swords</span></div>
+                                            Favorite weapon: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{nameOfTheWeapon}</span>
+                                        </li>
+                                        <li className="flex flex-row gap-3">
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">arrow_forward</span></div>
+                                            {nameOfTheWeapon} kills: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{user.stats[92].value}</span>
+                                        </li>
+                                        <li className="flex flex-row gap-3">
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">arrow_forward</span></div>
+                                            {nameOfTheWeapon} shots: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{user.stats[90].value}</span>
+                                        </li>
+                                        <li className="flex flex-row gap-3">
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">arrow_forward</span></div>
+                                            {nameOfTheWeapon} hits: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{user.stats[91].value}</span>
+                                        </li>
+                                    </ol>
+
+                                    <div className="flex flex-col gap-4 items-center justify-center w-full">
+                                        <h1 className="text-xl font-['Madimi_One']">Best side for both teams:</h1>
+                                        <CustomPieChart percentage={''} colors={betterSideColors} data={betterSideData} textColor={headShotKillsTextColor} size={250} innerRadius={85} outerRadius={120} />
+                                        <div className="flex flex-row gap-3">
+                                            <div className="flex flex-row items-center justify-center gap-1">
+                                                <div className="w-4 h-4 bg-[#202020] rounded-full"></div>
+                                                <p className="text-base font-medium">ct-wins({ user.stats[83].value }) </p>
+                                            </div>
+
+                                            <div className="flex flex-row items-center justify-center gap-1">
+                                                <div className="w-4 h-4 bg-[#CC9614] rounded-full"></div>
+                                                <p className="text-base font-medium">t-wins({ user.stats[82].value })</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>             
                 </div>

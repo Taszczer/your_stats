@@ -7,14 +7,13 @@ import {
   Label,
 } from 'recharts';
 
-export default function CustomPieChart({ percentage, colors, textColor, data }: { percentage: number; colors: string[]; textColor: string; data: { value: number }[] }) {
-    console.log(percentage)
+export default function CustomPieChart({ percentage, colors, textColor, data, size, innerRadius, outerRadius }: { percentage:string; colors: string[]; textColor: string; data: { value: number }[]; size: number; innerRadius: number; outerRadius:number }) {
   return (
-    <PieChart width={200} height={200}>
+    <PieChart width={size} height={size}>
       <Pie
         data={data}
-        innerRadius={60}
-        outerRadius={90}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius}
         startAngle={90}
         endAngle={-270}
         dataKey="value"
@@ -25,14 +24,14 @@ export default function CustomPieChart({ percentage, colors, textColor, data }: 
           <Cell key={`cell-${index}`} fill={colors[index]} />
         ))}
         <Label
-          value={`${percentage} %`}
-          position="center"
-          style={{
-            fill: textColor,
-            fontSize: 32,
-            fontWeight: 'normal',
-            fontFamily: 'angkor'
-          }}
+            value={percentage}
+            position="center"
+            style={{
+                fill: textColor,
+                fontSize: 32,
+                fontWeight: 'normal',
+                fontFamily: 'angkor'
+            }}
         />
       </Pie>
     </PieChart>
