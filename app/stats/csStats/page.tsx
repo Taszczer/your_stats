@@ -6,6 +6,7 @@ import { weaponIdMap } from "@/lib/weaponIdMap"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useSearchParams } from "next/navigation"
+import GunStats from "./favMaps/page"
 
 export default function CsStats() {
 
@@ -20,6 +21,7 @@ export default function CsStats() {
             return res.data
         }
     })
+
     if (data) {
 
         const statsArray = data.playerstats.stats;
@@ -58,13 +60,13 @@ export default function CsStats() {
 
         const betterSideColors = ['#202020', '#CC9614']
         const betterSideData = [
-            { value: userData['last_match_t_wins'] },
-            { value: userData['last_match_ct_wins'] }
+            { value: userData['last_match_ct_wins'] },
+            { value: userData['last_match_t_wins'] }
         ]
 
         return (
             <>
-                <div className="flex flex-col items-center justify-center gap-8 px-4 pt-12 w-full">
+                <div className="flex flex-col items-center gap-8 px-4 py-12 w-full h-screen overflow-y-auto">
                     <div className="flex flex-row items-center justify-center gap-8 w-full">
                         <div className="flex flex-col gap-8">
                             <div className="flex flex-col bg-white min-w-[328px] max-w-[440px] h-[440px] p-6 gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]">
@@ -250,7 +252,10 @@ export default function CsStats() {
                                 </div>
                             </div>
                         </div>
-                    </div>             
+                    </div> 
+                    <div className="flex w-full items-center justify-center">
+                        <GunStats data={data} />
+                    </div>
                 </div>
             </>
         )   

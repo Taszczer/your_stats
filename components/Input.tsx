@@ -26,8 +26,6 @@ export default function Input() {
                     type="text"
                     className="w-full text-white text-3xl pl-[60px] focus:outline-none focus:border-0"
                     placeholder="Enter your SteamID..."
-                    maxLength={12}
-                    size={12}
                     onKeyDown={getUserID}
                     value={value}
                     onChange={e => setValue(e.target.value)}
