@@ -44,28 +44,30 @@ export default function SideBar() {
             minute: "2-digit",
         })
 
-        switch (user.personaState) {
+        let personaStateLabel;
+        switch (user.personastate) {
             case 1:
-                user.personaState = 'Online';
+                personaStateLabel = 'Online';
                 break;
             case 2:
-                user.personaState = 'Busy';
+                personaStateLabel = 'Busy';
                 break;
             case 3:
-                user.personaState = 'Away';
+                personaStateLabel = 'Away';
                 break;
             case 4:
-                user.personaState = 'Snooze';
+                personaStateLabel = 'Snooze';
                 break;
             case 5:
-                user.personaState = 'Looking to trade';
+                personaStateLabel = 'Looking to trade';
                 break;
             case 6:
-                user.personaState = 'Looking to play';
+                personaStateLabel = 'Looking to play';
                 break;
             default:
-                user.personaState = 'Offline';
+                personaStateLabel = 'Offline';
         }
+
         return (
             <div className="flex flex-col items-center h-screen min-w-[360px] rounded-tr-[24px] rounded-br-[24px] border-r-4 border-black bg-[#CC9614] relative overflow-hidden">
                 <div className="flex flex-col gap-7 items-center h-full w-full p-6">
@@ -83,7 +85,7 @@ export default function SideBar() {
                             <p className="text-base">#{user.steamid}</p>
                         </div>
 
-                        <h1 className="font-bold text-xl">Status: <span className="text-black font-['Madimi_One'] ml-2">{user.personaState}</span></h1>
+                        <h1 className="font-bold text-xl">Status: <span className="text-black font-['Madimi_One'] ml-2">{personaStateLabel}</span></h1>
                     </div>
 
                     <div className="w-full bg-white h-[3px] rounded-full"></div>

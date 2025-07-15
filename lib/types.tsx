@@ -9,7 +9,7 @@ export type User = {
     lastlogoff: number;
     timecreated: number;
     locstatecode?: string;
-    personaState: number | string;
+    personastate: number | string;
     communityvisibilitystate: number;
     gameextrainfo?: string;
     realname?: string;

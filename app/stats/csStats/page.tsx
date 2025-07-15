@@ -22,6 +22,10 @@ export default function CsStats() {
         }
     })
 
+    isError && (
+        console.log(error)
+    )
+
     if (data) {
 
         const statsArray = data.playerstats.stats;
