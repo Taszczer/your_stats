@@ -6,7 +6,8 @@ import { weaponIdMap } from "@/lib/weaponIdMap"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useSearchParams } from "next/navigation"
-import GunStats from "./favMaps/page"
+import GunStats from "./gunsStats/page"
+import Skeleton from '@/components/Skeleton';
 
 export default function CsStats() {
 
@@ -17,18 +18,33 @@ export default function CsStats() {
     const { data, isPending, isError, error } = useQuery<userStatsResponse>({
         queryKey: ['Stats'],
         queryFn: async () => {
-            const res = await axios.get<userStatsResponse>(`/api/steam/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=297EF931003801AA8E111DF1E8FAC18B&steamid=${id}`)
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+            const res = await axios.get<userStatsResponse>(
+                `/api/steam/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=297EF931003801AA8E111DF1E8FAC18B&steamid=${id}`,
+            )
             return res.data
-        }
+        },
+        retry: false,
     })
 
-    isError && (
-        console.log(error)
+    if (isPending) {
+    return (
+        <Skeleton/>
     )
+}
+
+    if (isError) {
+        return (
+            <div className="w-full h-full flex justify-center items-center">
+                <h1>Your Steam profile or game stats are private </h1>
+            </div>
+        )
+    }
 
     if (data) {
 
         const statsArray = data.playerstats.stats;
+        console.log(statsArray)
         const userData: any = {};
 
         for (const stat of statsArray) {
@@ -46,7 +62,19 @@ export default function CsStats() {
         ]
         const winRateTextColor = '#CC9614'
 
-        const hittedShots = Math.floor(userData['total_shots_hit'] / userData['total_shots_fired'] * 100)
+        let totalWeaponHits = 0;
+        let totalWeaponShots = 0;
+
+        for (const stat of statsArray) {
+            if (stat.name.startsWith("total_hits_")) {
+                totalWeaponHits += stat.value;
+            }
+            if (stat.name.startsWith("total_shots_") && !stat.name.includes("fired") && !stat.name.includes("hit")) {
+                totalWeaponShots += stat.value;
+            }
+        }
+
+        const hittedShots = Math.floor(totalWeaponHits / totalWeaponShots * 100)
         const hittedShotsColors = ["#A7780C", "#E6BC74"]
         const hittedShotsData = [
             { value: hittedShots},
@@ -72,10 +100,10 @@ export default function CsStats() {
             <>
                 <div className="flex flex-col items-center gap-8 px-4 py-12 w-full h-screen overflow-y-auto">
                     <div className="flex flex-row items-center justify-center gap-8 w-full">
-                        <div className="flex flex-col gap-8">
-                            <div className="flex flex-col bg-white min-w-[328px] max-w-[440px] h-[440px] p-6 gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]">
+                        <div className="flex flex-col w-full max-w-[400px] gap-8">
+                            <div className="flex flex-col bg-white min-w-[328px] w-full max-w-[400px] h-[440px] p-6 gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]">
                                 <h1 className="w-full text-center text-xl font-['Angkor'] text-[#CC9614]">Total stats</h1>
-                                <ol className="flex flex-col gap-4 text-xl font-medium ">
+                                <ol className="flex flex-col gap-4 text-xl font-medium">
                                     <li className="flex flex-row gap-3">
                                         <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">dropper_eye</span></div>
                                         Kills: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_kills']}</span>

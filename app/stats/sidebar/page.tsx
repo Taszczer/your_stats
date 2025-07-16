@@ -36,7 +36,7 @@ export default function SideBar() {
         })
 
         const logOffDate = new Date(user.lastlogoff * 1000)
-        const lastLogOff = logOffDate.toLocaleDateString("en-GB", {
+        let lastLogOff = logOffDate.toLocaleDateString("en-GB", {
             year: "numeric",
             month: "2-digit",
             day: "2-digit",
@@ -68,16 +68,20 @@ export default function SideBar() {
                 personaStateLabel = 'Offline';
         }
 
+        lastLogOff == 'Invalid Date' && (
+            lastLogOff = 'Hidden'
+        )
+
         return (
             <div className="flex flex-col items-center h-screen min-w-[360px] rounded-tr-[24px] rounded-br-[24px] border-r-4 border-black bg-[#CC9614] relative overflow-hidden">
                 <div className="flex flex-col gap-7 items-center h-full w-full p-6">
-                    <div className="flex flex-col text-white text-center gap-5">
+                    <div className="flex flex-col text-white text-center items-center gap-5">
                         <Image
                             src={`${user.avatarfull}`}
                             alt="profile_pic"
                             width={184}
                             height={184}
-                            className=" rounded-full border-r-8 border-b-8 border-l-2 border-t-2 border-black"
+                            className="flex items-center rounded-full border-r-8 border-b-8 border-l-2 border-t-2 border-black"
                         />
 
                         <div className="text-center">
