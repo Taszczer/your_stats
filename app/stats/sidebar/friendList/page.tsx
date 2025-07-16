@@ -1,5 +1,6 @@
 'use client'
 
+import FriendSkeleton from "@/components/skeletons/FriendSkeleton"
 import { oneFriendResponse, User, UserFriends, userFriendsResponse, userResponse } from "@/lib/types"
 import { useQueries, useQuery } from "@tanstack/react-query"
 import axios from "axios"
@@ -10,26 +11,32 @@ export default function FriendList(userId: string | any) {
   
   const router = useRouter()
     
-    const { data, isPending, isError, error } = useQuery<userFriendsResponse>({
-        queryKey: ['FriendList'],
-        queryFn: async () => {
-            const res = await axios.get(`/api/steam/ISteamUser/GetFriendList/v0001/?key=297EF931003801AA8E111DF1E8FAC18B&steamid=${Object.values(userId)}&relationship=friend`)
-            return res.data
-        }
-    })
+  const { data, isPending, isError, error } = useQuery<userFriendsResponse>({
+    queryKey: ['FriendList'],
+    queryFn: async () => {
+        const res = await axios.get(`/api/steam/ISteamUser/GetFriendList/v0001/?key=297EF931003801AA8E111DF1E8FAC18B&steamid=${Object.values(userId)}&relationship=friend`)
+        return res.data
+    }
+  })
+
+  const friendSummaries = useQueries({
+    queries: (data?.friendslist.friends || []).map((friend) => ({
+      queryKey: ['friendSummary', friend.steamid],
+      queryFn: async () => {
+        const res = await axios.get<oneFriendResponse>(`/api/steam/ISteamUser/GetPlayerSummaries/v0002/?key=297EF931003801AA8E111DF1E8FAC18B&steamids=${friend.steamid}`)
+        return res.data.response.players[0]
+    },
+    staleTime: 1000 * 60 * 5,
+   })),
+  })
+   
+  if (isPending) {
+    return (
+      <FriendSkeleton friendSummaries={friendSummaries} />
+    )    
+  }
   
-    const friendSummaries = useQueries({
-      queries: (data?.friendslist.friends || []).map((friend) => ({
-        queryKey: ['friendSummary', friend.steamid],
-        queryFn: async () => {
-          const res = await axios.get<oneFriendResponse>(`/api/steam/ISteamUser/GetPlayerSummaries/v0002/?key=297EF931003801AA8E111DF1E8FAC18B&steamids=${friend.steamid}`)
-          return res.data.response.players[0]
-      },
-      staleTime: 1000 * 60 * 5,
-     })),
-    })
-  
-  function sigma(id?:string) {
+  function findFriend(id?:string) {
     router.push(`/stats?id=${id}`)
     setTimeout(() => {
       window.location.reload();
@@ -46,7 +53,7 @@ export default function FriendList(userId: string | any) {
           (
             <div
               key={friend.data?.steamid || key}
-              onClick={() => sigma(friend.data?.steamid)}
+              onClick={() => findFriend(friend.data?.steamid)}
               className="flex flex-row cursor-pointer items-center gap-6 px-4 py-3 bg-white rounded-xl border-[1px] border-r-4 border-b-4 border-black w-full"
             >
               {friend.data?.avatar && (

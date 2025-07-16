@@ -8,6 +8,7 @@ import Image from "next/image";
 import countries from 'i18n-iso-countries';
 import en from 'i18n-iso-countries/langs/en.json';
 import FriendList from "./friendList/page";
+import SideBarSkeleton from "@/components/skeletons/SideBarSkeleton";
 
 export default function SideBar() {
 
@@ -19,10 +20,17 @@ export default function SideBar() {
     const { data, isPending, isError, error } = useQuery<userResponse>({
         queryKey: ['YourStats'],
         queryFn: async () => {
+            await new Promise((resolve) => setTimeout(resolve, 2000))
             const res = await axios.get(`/api/steam/ISteamUser/GetPlayerSummaries/v0002/?key=297EF931003801AA8E111DF1E8FAC18B&steamids=${id}`);
             return res.data
         },
     })
+
+    if (isPending) {
+        return (
+            <SideBarSkeleton/>
+        )
+    }
     
     if (data) {
         const user: User = data.response.players[0];

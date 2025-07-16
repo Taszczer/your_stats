@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useSearchParams } from "next/navigation"
 import GunStats from "./gunsStats/page"
-import Skeleton from '@/components/Skeleton';
+import Skeleton from '@/components/skeletons/Skeleton';
 
 export default function CsStats() {
 
