@@ -20,7 +20,6 @@ export default function SideBar() {
     const { data, isPending, isError, error } = useQuery<userResponse>({
         queryKey: ['YourStats'],
         queryFn: async () => {
-            await new Promise((resolve) => setTimeout(resolve, 2000))
             const res = await axios.get(`/api/steam/ISteamUser/GetPlayerSummaries/v0002/?key=297EF931003801AA8E111DF1E8FAC18B&steamids=${id}`);
             return res.data
         },

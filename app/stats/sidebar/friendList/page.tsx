@@ -29,8 +29,10 @@ export default function FriendList(userId: string | any) {
     staleTime: 1000 * 60 * 5,
    })),
   })
+
+  const allLoading = friendSummaries.some(q => q.isLoading)
    
-  if (isPending) {
+  if (isPending || allLoading) {
     return (
       <FriendSkeleton friendSummaries={friendSummaries} />
     )    
