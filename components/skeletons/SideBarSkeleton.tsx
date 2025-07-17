@@ -33,7 +33,7 @@ export default function SideBarSkeleton() {
                     <div className="w-full bg-gray-200 h-[3px] rounded-full"></div>
         
                     <div className="w-full">
-                        <FriendSkeleton friendSummaries={[]}/>
+                        <FriendSkeleton/>
                     </div>
                             
                 </div>

@@ -34,7 +34,7 @@ export default function FriendList(userId: string | any) {
    
   if (isPending || allLoading) {
     return (
-      <FriendSkeleton friendSummaries={friendSummaries} />
+      <FriendSkeleton/>
     )    
   }
   

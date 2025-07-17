@@ -1,4 +1,4 @@
-export default function FriendSkeleton({friendSummaries}: {friendSummaries: any[]}) {
+export default function FriendSkeleton() {
     return (
         <>
             <div className="flex flex-col gap-4 w-full items-center animate-pulse">
