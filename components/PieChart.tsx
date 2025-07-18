@@ -5,35 +5,54 @@ import {
   Pie,
   Cell,
   Label,
+  ResponsiveContainer,
 } from 'recharts';
+import { useMediaQuery } from '@/lib/useMediaQuery'; 
 
-export default function CustomPieChart({ percentage, colors, textColor, data, size, innerRadius, outerRadius }: { percentage:string; colors: string[]; textColor: string; data: { value: number }[]; size: number; innerRadius: number; outerRadius:number }) {
+export default function CustomPieChart({
+  percentage,
+  colors,
+  textColor,
+  data,
+}: {
+  percentage: string;
+  colors: string[];
+  textColor: string;
+  data: { value: number }[];
+}) {
+  const isMedium = useMediaQuery('(min-width: 768px)');
+
+  const innerRadius = isMedium ? 60 : 40;
+  const outerRadius = isMedium ? 90 : 60;
+
   return (
-    <PieChart width={size} height={size}>
-      <Pie
-        data={data}
-        innerRadius={innerRadius}
-        outerRadius={outerRadius}
-        startAngle={90}
-        endAngle={-270}
-        dataKey="value"
-        stroke="white"
-        strokeWidth={3}
-      >
-        {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={colors[index]} />
-        ))}
-        <Label
+    <ResponsiveContainer>
+      <PieChart height={200} width={200}>
+        <Pie
+          data={data}
+          innerRadius={innerRadius}
+          outerRadius={outerRadius}
+          startAngle={90}
+          endAngle={-270}
+          dataKey="value"
+          stroke="white"
+          strokeWidth={3}
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={colors[index]} />
+          ))}
+          <Label
             value={percentage}
             position="center"
             style={{
-                fill: textColor,
-                fontSize: 32,
-                fontWeight: 'normal',
-                fontFamily: 'angkor'
+              fill: textColor,
+              fontWeight: 'normal',
+              fontFamily: 'angkor',
             }}
-        />
-      </Pie>
-    </PieChart>
+            className='text-2xl md:text-3xl'
+          />
+        </Pie>
+      </PieChart>
+    </ResponsiveContainer>
   );
 }

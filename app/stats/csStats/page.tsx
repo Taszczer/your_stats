@@ -8,10 +8,21 @@ import axios from "axios"
 import { useSearchParams } from "next/navigation"
 import GunStats from "./gunsStats/page"
 import Skeleton from '@/components/skeletons/Skeleton';
+import { useState } from "react"
 
 export default function CsStats() {
 
     const searchParams = useSearchParams()
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded2, setIsExpanded2] = useState(false);
+    
+    const handleToggle1 = () => {
+        setIsExpanded(prev => !prev)
+    }
+
+    const handleToggle2 = () => {
+        setIsExpanded2(prev => !prev)
+    }
 
     const id = searchParams.get("id")
 
@@ -41,9 +52,7 @@ export default function CsStats() {
     }
 
     if (data) {
-
         const statsArray = data.playerstats.stats;
-        console.log(statsArray)
         const userData: any = {};
 
         for (const stat of statsArray) {
@@ -98,194 +107,217 @@ export default function CsStats() {
         return (
             <>
                 <div className="flex flex-col items-center gap-8 px-4 py-12 w-full h-screen overflow-y-auto">
-                    <div className="flex flex-row items-center justify-center gap-8 w-full">
-                        <div className="flex flex-col w-full max-w-[400px] gap-8">
-                            <div className="flex flex-col bg-white min-w-[328px] w-full max-w-[400px] h-[440px] p-6 gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]">
-                                <h1 className="w-full text-center text-xl font-['Angkor'] text-[#CC9614]">Total stats</h1>
-                                <ol className="flex flex-col gap-4 text-xl font-medium">
-                                    <li className="flex flex-row gap-3">
-                                        <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">dropper_eye</span></div>
-                                        Kills: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_kills']}</span>
-                                    </li>
-
-                                    <li className="flex flex-row gap-3">
-                                        <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">skull</span></div>
-                                        Deaths: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_deaths']}</span>
-                                    </li>
-
-                                    <li className="flex flex-row gap-3">
-                                        <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">point_scan</span></div>
-                                        Damage dealt: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_damage_done']}</span>
-                                    </li>
-
-                                    <li className="flex flex-row gap-3">
-                                        <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">social_leaderboard</span></div>
-                                        MVPs: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_mvps']}</span>
-                                    </li>
-
-                                    <li className="flex flex-row gap-3">
-                                        <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">alarm</span></div>
-                                        Time played: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{Math.floor(userData['total_time_played'] / 60 / 60)} h</span>
-                                    </li>
-
-                                    <li className="flex flex-row gap-3">
-                                        <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">bomb</span></div>
-                                        Planted bombs: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_planted_bombs']}</span>
-                                    </li>
-
-                                    <li className="flex flex-row gap-3">
-                                        <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">tools_pliers_wire_stripper</span></div>
-                                        Defused bombs: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_defused_bombs']}</span>
-                                    </li>                                
-                                </ol>
-                            </div>
-
-                            <div className="flex flex-col bg-white min-w-[328px] max-w-[440px] h-[388px] p-6 gap-4 rounded-3xl border-b-4 items-center border-r-4 border-t-[1px] border-l-[1px]">
-                                <h1 className="w-[80%] text-center text-xl font-['Angkor'] text-[#CC9614]">Special Situational Stats</h1>
-                                <ol className="flex flex-col gap-4 text-xl font-medium just">
-                                    <li className="flex flex-row gap-3">
-                                        <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">dropper_eye</span></div>
-                                        Kills using knife: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_kills_knife']}</span>
-                                    </li>
-
-                                    <li className="flex flex-row gap-3">
-                                        <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">visibility_off</span></div>
-                                        Blinded enemy killed: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_kills_enemy_blinded']}</span>
-                                    </li>
-
-                                    <li className="flex flex-row gap-3">
-                                        <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">cognition_2</span></div>
-                                        Headshot kills: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_kills_headshot']}</span>
-                                    </li>
-
-                                    <li className="flex flex-row gap-3">
-                                        <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">border_all</span></div>
-                                        Broken windows: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_broken_windows']}</span>
-                                    </li>
-
-                                    <li className="flex flex-row gap-3 justify-center ">
-                                        <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">sword_rose</span></div>
-                                        Kills using enemies weapon: <span className="flex items-center h-full text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_kills_enemy_weapon']}</span>
-                                    </li>                               
-                                </ol>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col gap-8 h-full">
-                            <div className="flex flex-row gap-9 bg-white w-[900px] h-[324px] py-4 rounded-3xl border-black border-t-[1px] border-r-4 border-b-4 border-l-[1px]">
-                                
-                                <div className="flex flex-col gap-4 w-full items-center">
-                                    <h1 className="text-xl font-['Madimi_One'] text-black">Win Rate:</h1>
-                                    <CustomPieChart percentage={winrate.toString() + ' %'} colors={winRateColors} data={winRateData} textColor={winRateTextColor} size={200} innerRadius={60} outerRadius={90} />
-                                    <div className="flex flex-row gap-3">
-                                        <div className="flex flex-row items-center justify-center gap-1">
-                                            <div className="w-4 h-4 bg-[#CC9614] rounded-full"></div>
-                                            <p className="text-base font-medium">win</p>
-                                        </div>
-
-                                        <div className="flex flex-row items-center justify-center gap-1">
-                                            <div className="w-4 h-4 bg-[#F8E4C7] rounded-full"></div>
-                                            <p className="text-base font-medium">lose</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col gap-4 w-full items-center">
-                                    <h1 className="text-xl font-['Madimi_One'] text-black">Hitted shots:</h1>
-                                    <CustomPieChart percentage={hittedShots.toString() + ' %'} colors={hittedShotsColors} data={hittedShotsData} textColor={hittedShotsTextColor} size={200} innerRadius={60} outerRadius={90} />
-                                    <div className="flex flex-row gap-3">
-                                        <div className="flex flex-row items-center justify-center gap-1">
-                                            <div className="w-4 h-4 bg-[#A7780C] rounded-full"></div>
-                                            <p className="text-base font-medium">hitted</p>
-                                        </div>
-
-                                        <div className="flex flex-row items-center justify-center gap-1">
-                                            <div className="w-4 h-4 bg-[#E6BC74] rounded-full"></div>
-                                            <p className="text-base font-medium">missed</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col gap-4 w-full items-center">
-                                    <h1 className="text-xl font-['Madimi_One'] text-black">Headshot Kill:</h1>
-                                    <CustomPieChart percentage={headShotKills.toString() + ' %'} colors={headShotKillsColors} data={headShotKillsData} textColor={headShotKillsTextColor} size={200} innerRadius={60} outerRadius={90} />
-                                    <div className="flex flex-row gap-3">
-                                        <div className="flex flex-row items-center justify-center gap-1">
-                                            <div className="w-4 h-4 bg-[#202020] rounded-full"></div>
-                                            <p className="text-base font-medium">headshot </p>
-                                        </div>
-
-                                        <div className="flex flex-row items-center justify-center gap-1">
-                                            <div className="w-4 h-4 bg-[#CC9614] rounded-full"></div>
-                                            <p className="text-base font-medium">normal</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="flex flex-col bg-white h-full max-w-[900px] rounded-3xl border-black border-t-[1px] border-r-4 border-b-4 border-l-[1px] p-6 gap-4">
-                                <h1 className="w-full text-center text-xl font-['Angkor'] text-[#CC9614]">Last match stats: </h1>
-                                <div className="flex flex-row px-10">
-                                    <ol className="flex flex-col gap-4 text-xl font-medium w-full">
+                    <div>
+                        <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full">
+                            <div className="flex flex-col w-full max-w-[400px] gap-8">
+                                <div className={`flex flex-col bg-white w-full ${isExpanded ? 'max-h-[392px]' : 'max-h-[244px]'} md:min-w-[328px] md:max-w-[400px] md:h-[440px] md:max-h-[440px] px-6 py-4 md:p-6 gap:3 md:gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]`}>
+                                    <h1 className="w-full text-center text-base md:text-xl font-['Angkor'] text-[#CC9614]">Total stats</h1>
+                                    <ol className={`flex flex-col ${isExpanded ? 'max-h-[391px]' : 'max-h-[144px]'} md:max-h-full overflow-clip gap-3 md:gap-4 text-base md:text-xl font-medium`}>
                                         <li className="flex flex-row gap-3">
-                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">dropper_eye</span></div>
-                                            Kills: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_kills']}</span>
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">dropper_eye</span></div>
+                                            Kills: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_kills']}</span>
                                         </li>
+
                                         <li className="flex flex-row gap-3">
-                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">payments</span></div>
-                                            Money spent: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_money_spent']} $</span>
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">skull</span></div>
+                                            Deaths: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_deaths']}</span>
                                         </li>
+
                                         <li className="flex flex-row gap-3">
-                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">crown</span></div>
-                                            Match wins: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_wins']}</span>
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">point_scan</span></div>
+                                            Damage dealt: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_damage_done']}</span>
                                         </li>
+
                                         <li className="flex flex-row gap-3">
-                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">social_leaderboard</span></div>
-                                            MVPs: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_mvps']}</span>
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">social_leaderboard</span></div>
+                                            MVPs: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_mvps']}</span>
                                         </li>
+
                                         <li className="flex flex-row gap-3">
-                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">humidity_low</span></div>
-                                            Dealt damage: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_damage']}</span>
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">alarm</span></div>
+                                            Time played: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{Math.floor(userData['total_time_played'] / 60 / 60)} h</span>
                                         </li>
+
                                         <li className="flex flex-row gap-3">
-                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">swords</span></div>
-                                            Favorite weapon: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{nameOfTheWeapon}</span>
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">bomb</span></div>
+                                            Planted bombs: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_planted_bombs']}</span>
                                         </li>
+
                                         <li className="flex flex-row gap-3">
-                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">arrow_forward</span></div>
-                                            {nameOfTheWeapon} kills: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_favweapon_kills']}</span>
-                                        </li>
-                                        <li className="flex flex-row gap-3">
-                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">arrow_forward</span></div>
-                                            {nameOfTheWeapon} shots: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_favweapon_shots']}</span>
-                                        </li>
-                                        <li className="flex flex-row gap-3">
-                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl scale-[1.1667]">arrow_forward</span></div>
-                                            {nameOfTheWeapon} hits: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_favweapon_hits']}</span>
-                                        </li>
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">tools_pliers_wire_stripper</span></div>
+                                            Defused bombs: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_defused_bombs']}</span>
+                                        </li>                                
                                     </ol>
+                                    <div className="block md:hidden w-full mt-3">
+                                        <div className="h-full flex justify-center"><span onClick={handleToggle1} className="material-symbols-outlined text-xl scale-[1.3667] cursor-pointer">{isExpanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</span></div>
+                                    </div>
+                                </div>
 
-                                    <div className="flex flex-col gap-4 items-center justify-center w-full">
-                                        <h1 className="text-xl font-['Madimi_One']">Best side for both teams:</h1>
-                                        <CustomPieChart percentage={''} colors={betterSideColors} data={betterSideData} textColor={headShotKillsTextColor} size={250} innerRadius={85} outerRadius={120} />
+                                <div className="flex flex-col bg-white w-full md:min-w-[328px] md:max-w-[440px] md:h-[388px] px-6 py-4 md:p-6 gap-3 md:gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]">
+                                    <h1 className="w-full text-center text-base md:text-xl font-['Angkor'] text-[#CC9614]">Special Situational Stats</h1>
+                                    <ol className="flex flex-col gap-3 md:gap-4 text-base md:text-xl font-medium just">
+                                        <li className="flex flex-row gap-3">
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">dropper_eye</span></div>
+                                            Kills using knife: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_kills_knife']}</span>
+                                        </li>
+
+                                        <li className="flex flex-row gap-3">
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">visibility_off</span></div>
+                                            Blinded enemy killed: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_kills_enemy_blinded']}</span>
+                                        </li>
+
+                                        <li className="flex flex-row gap-3">
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">cognition_2</span></div>
+                                            Headshot kills: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_kills_headshot']}</span>
+                                        </li>
+
+                                        <li className="flex flex-row gap-3">
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">border_all</span></div>
+                                            Broken windows: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_broken_windows']}</span>
+                                        </li>
+
+                                        <li className="flex flex-row gap-3">
+                                            <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">sword_rose</span></div>
+                                            <p className="max-w-[148px] md:max-w-[200px]">Kills using enemies weapon:</p> <span className="flex items-center h-full text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_kills_enemy_weapon']}</span>
+                                        </li>                               
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col gap-6 md:gap-8 w-full items-center md:items-start h-full">
+                                <div className="flex flex-row gap-3 overflow-clip overflow-x-auto md:gap-9 bg-white w-full h-[252px] max-w-[400px] md:w-[900px] md:max-w-[900px] md:h-[324px] p-4 md:py-4 rounded-3xl border-black border-t-[1px] border-r-4 border-b-4 border-l-[1px]">
+
+                                    <div className="flex flex-col gap-2 md:gap-4 w-full h-full items-center">
+                                        <h1 className="text-base md:text-xl font-['Madimi_One'] text-black">Win Rate:</h1>
+                                        <div className="w-[175px] h-[175px] md:w-[200px] md:h-[200px]">
+                                            <CustomPieChart percentage={winrate.toString() + ' %'} colors={winRateColors} data={winRateData} textColor={winRateTextColor}/>
+                                        </div>
+                                        <div className="flex flex-row gap-3">
+                                            <div className="flex flex-row items-center justify-center gap-1">
+                                                <div className="w-4 h-4 bg-[#CC9614] rounded-full"></div>
+                                                <p className="text-base font-medium">win</p>
+                                            </div>
+
+                                            <div className="flex flex-row items-center justify-center gap-1">
+                                                <div className="w-4 h-4 bg-[#F8E4C7] rounded-full"></div>
+                                                <p className="text-base font-medium">lose</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-col gap-2 md:gap-4 w-full h-full items-center">
+                                        <h1 className="text-base md:text-xl font-['Madimi_One'] text-black">Hitted shots:</h1>
+                                        <div className="w-[175px] h-[175px] md:w-[200px] md:h-[200px]">
+                                            <CustomPieChart percentage={hittedShots.toString() + ' %'} colors={hittedShotsColors} data={hittedShotsData} textColor={hittedShotsTextColor}/>
+                                        </div>
+                                        <div className="flex flex-row gap-3">
+                                            <div className="flex flex-row items-center justify-center gap-1">
+                                                <div className="w-4 h-4 bg-[#A7780C] rounded-full"></div>
+                                                <p className="text-base font-medium">hitted</p>
+                                            </div>
+
+                                            <div className="flex flex-row items-center justify-center gap-1">
+                                                <div className="w-4 h-4 bg-[#E6BC74] rounded-full"></div>
+                                                <p className="text-base font-medium">missed</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-col gap-2 md:gap-4 w-full h-full items-center">
+                                        <h1 className="text-base md:text-xl font-['Madimi_One'] text-black">Headshot Kill:</h1>
+                                        <CustomPieChart percentage={headShotKills.toString() + ' %'} colors={headShotKillsColors} data={headShotKillsData} textColor={headShotKillsTextColor}/>
                                         <div className="flex flex-row gap-3">
                                             <div className="flex flex-row items-center justify-center gap-1">
                                                 <div className="w-4 h-4 bg-[#202020] rounded-full"></div>
-                                                <p className="text-base font-medium">ct-wins({ userData['last_match_ct_wins']}) </p>
+                                                <p className="text-base font-medium">headshot </p>
                                             </div>
 
                                             <div className="flex flex-row items-center justify-center gap-1">
                                                 <div className="w-4 h-4 bg-[#CC9614] rounded-full"></div>
-                                                <p className="text-base font-medium">t-wins({ userData['last_match_t_wins'] })</p>
+                                                <p className="text-base font-medium">normal</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className={`relative flex flex-col bg-white w-full max-w-[400px] md:w-full ${isExpanded2 ? 'h-[672px] max-h-[672px]' : 'h-[264px] max-h-[264px]'} md:h-[510px] md:max-h-[510px] md:max-w-[900px] rounded-3xl border-black border-t-[1px] border-r-4 border-b-4 border-l-[1px] px-6 py-4 md:p-6 gap-3 md:gap-4`}>
+                                    <h1 className="w-full text-center text-base md:text-xl font-['Angkor'] text-[#CC9614]">Last match stats: </h1>
+                                    <div className={`flex flex-col md:flex-row md:px-10 ${isExpanded2 ? 'h-[564px] max-h-[564px]' : 'max-h-[156px]'} md:max-h-full overflow-clip`}>
+                                        <ol className={`flex flex-col gap-3 md:gap-4 text-base md:text-xl font-medium w-full overflow-clip`}>
+                                            <li className="flex flex-row gap-3">
+                                                <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">dropper_eye</span></div>
+                                                Kills: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_kills']}</span>
+                                            </li>
+                                            <li className="flex flex-row gap-3">
+                                                <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">payments</span></div>
+                                                Money spent: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_money_spent']} $</span>
+                                            </li>
+                                            <li className="flex flex-row gap-3">
+                                                <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">crown</span></div>
+                                                Match wins: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_wins']}</span>
+                                            </li>
+                                            <li className="flex flex-row gap-3">
+                                                <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">social_leaderboard</span></div>
+                                                MVPs: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_mvps']}</span>
+                                            </li>
+                                            <li className="flex flex-row gap-3">
+                                                <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">humidity_low</span></div>
+                                                Dealt damage: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_damage']}</span>
+                                            </li>
+                                            <li className="flex flex-row gap-3">
+                                                <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">swords</span></div>
+                                                Favorite weapon: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{nameOfTheWeapon}</span>
+                                            </li>
+                                            <li className="flex flex-row gap-3">
+                                                <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">arrow_forward</span></div>
+                                                {nameOfTheWeapon} kills: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_favweapon_kills']}</span>
+                                            </li>
+                                            <li className="flex flex-row gap-3">
+                                                <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">arrow_forward</span></div>
+                                                {nameOfTheWeapon} shots: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_favweapon_shots']}</span>
+                                            </li>
+                                            <li className="flex flex-row gap-3">
+                                                <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl md:scale-[1.1667]">arrow_forward</span></div>
+                                                {nameOfTheWeapon} hits: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['last_match_favweapon_hits']}</span>
+                                            </li>
+                                        </ol>
+                                        <div className="flex flex-col gap-2 md:gap-4 w-full mt-4 md:mt-0 h-full justify-center items-center">
+                                            <h1 className="text-base md:text-xl font-['Madimi_One'] text-black">Better Side:</h1>
+                                            <div className="w-[145px] h-[145px] md:w-[200px] md:h-[200px]">
+                                                <CustomPieChart 
+                                                percentage='' 
+                                                colors={betterSideColors} 
+                                                data={betterSideData} 
+                                                textColor="#202020" 
+                                                />
+                                            </div>
+                                            <div className="flex flex-row gap-3">
+                                                <div className="flex flex-row items-center justify-center gap-1">
+                                                    <div className="w-4 h-4 bg-[#202020] rounded-full"></div>
+                                                    <p className="text-base font-medium">ct-wins({ userData['last_match_ct_wins']}) </p>
+                                                </div>
+
+                                                <div className="flex flex-row items-center justify-center gap-1">
+                                                    <div className="w-4 h-4 bg-[#CC9614] rounded-full"></div>
+                                                    <p className="text-base font-medium">t-wins({ userData['last_match_t_wins'] })</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 md:hidden mt-3">
+                                            <div>
+                                                <span onClick={handleToggle2} className="material-symbols-outlined text-xl scale-[1.3667] cursor-pointer">
+                                                {isExpanded2 ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div> 
+                        
+                        <div className="flex w-full items-center justify-center mt-8">
+                            <GunStats data={data} />
                         </div>
-                    </div> 
-                    <div className="flex w-full items-center justify-center">
-                        <GunStats data={data} />
                     </div>
                 </div>
             </>

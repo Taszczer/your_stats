@@ -80,46 +80,55 @@ export default function SideBar() {
         )
 
         return (
-            <div className="flex flex-col items-center h-screen min-w-[360px] rounded-tr-[24px] rounded-br-[24px] border-r-4 border-black bg-[#CC9614] relative overflow-hidden">
-                <div className="flex flex-col gap-7 items-center h-full w-full p-6">
-                    <div className="flex flex-col text-white text-center items-center gap-5">
+            <div className="flex flex-col items-center h-[320px] md:h-screen w-screen md:min-w-[360px] md:w-[400px] rounded-bl-3xl rounded-br-3xl md:rounded-bl-[0px] md:rounded-tr-[24px] md:rounded-br-[24px] border-b-4 md:border-b-0 md:border-r-4 border-black bg-[#CC9614] relative overflow-hidden">
+                <div className="flex flex-col gap-4 md:gap-7 items-center h-full w-full p-3 pt-9 md:p-6">
+                    <div className="flex flex-row md:flex-col text-white text-center md:items-center gap-4 md:gap-5">
+                        <div className="relative w-[80px] h-[80px] md:w-[184px] md:h-[184px]">
                         <Image
-                            src={`${user.avatarfull}`}
+                            src={user.avatarfull}
                             alt="profile_pic"
-                            width={184}
-                            height={184}
-                            className="flex items-center rounded-full border-r-8 border-b-8 border-l-2 border-t-2 border-black"
+                            fill
+                            className="object-cover rounded-full border-r-4 border-b-4 border-[1px] md:border-r-8 md:border-b-8 md:border-l-2 md:border-t-2 border-black"
                         />
+                        </div>  
+                        <div className="flex flex-col justify-center">
+                            <div className="text-start md:text-center">
+                                <h1 className="text-xl md:text-2xl font-['Angkor']">{user.personaname}</h1>
+                                <p className="text-base md:text-base">#{user.steamid}</p>
+                            </div>
 
-                        <div className="text-center">
-                            <h1 className="text-2xl font-['Angkor']">{user.personaname}</h1>
-                            <p className="text-base">#{user.steamid}</p>
+                            <h1 className="font-bold text-base text-start md:text-xl">Status: <span className="text-black font-['Madimi_One'] ml-2">{personaStateLabel}</span></h1>
                         </div>
-
-                        <h1 className="font-bold text-xl">Status: <span className="text-black font-['Madimi_One'] ml-2">{personaStateLabel}</span></h1>
                     </div>
 
-                    <div className="w-full bg-white h-[3px] rounded-full"></div>
+                    <div className="w-full bg-white h-[2px] md:h-[3px] rounded-full flex-shrink-0"></div>
 
                     <div className="flex flex-col gap-2 text-base text-white font-medium text-center">
-                        <h1 className="text-2xl font-['Angkor']">{user.realname}</h1>
-                        <h2 className="text-xl font-medium">{countryName}</h2>
-                        <p>Created in: <span className="text-black font-['Madimi_One'] ml-1">{dateOfCreation}</span></p>
-                        <p>Last log off: <span className="text-black font-['Madimi_One'] ml-1">{lastLogOff}</span></p>
-                        {user.gameextrainfo ? (
-                            <>
-                                <p>Currently is playing: <span className="text-black ml-1 font-['Madimi_One']">{user.gameextrainfo}</span></p>
-                            </>
-                        ) : (
-                            <>
-                                <p>Currently is not playing</p>
-                            </>
-                        )}
+                        <h1 className="text-xl md:text-2xl font-['Angkor']">{user.realname}</h1>
+                        <div className="flex flex-row justify-center md:flex-col">
+                            <div className="flex flex-col gap-2 md:gap-0 max-w-[40%] md:max-w-full">
+                                <h2 className="text-base md:text-xl font-medium">{countryName}</h2>
+                                <p>Created in: <span className="text-black font-['Madimi_One'] ml-1">{dateOfCreation}</span></p>
+                            </div>
+
+                            <div className="flex flex-col-reverse gap-2 md:gap-0 md:flex-col max-w-[40%] md:max-w-full">
+                                <p>Last log off: <span className="text-black font-['Madimi_One'] ml-1">{lastLogOff}</span></p>
+                                {user.gameextrainfo ? (
+                                    <>
+                                        <p>Currently is playing: <span className="text-black ml-1 font-['Madimi_One']">{user.gameextrainfo}</span></p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <p>Currently is not playing</p>
+                                    </>
+                                )}
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="w-full bg-white h-[3px] rounded-full"></div>
+                    <div className="w-full bg-white h-0 md:h-[3px] rounded-full flex-shrink-0"></div>
 
-                    <div className="w-full">
+                    <div className="w-full hidden md:block">
                         <FriendList userId={id} />
                     </div>
                     

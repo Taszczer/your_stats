@@ -11,7 +11,7 @@ export default function Stats() {
 
      return (
         <>
-            <div className="flex flex-row bg-[#FFF1E6]">
+            <div className="flex flex-col md:flex-row bg-[#FFF1E6]">
                 <SideBar/>
 
                  <div className="w-full">
