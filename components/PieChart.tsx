@@ -49,7 +49,7 @@ export default function CustomPieChart({
               fontWeight: 'normal',
               fontFamily: 'angkor',
             }}
-            className='text-2xl md:text-3xl'
+            className='text-2xl lg:text-3xl'
           />
         </Pie>
       </PieChart>

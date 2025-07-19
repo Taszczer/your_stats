@@ -48,9 +48,9 @@ export default function FriendList(userId: string | any) {
   if (data) {
 
     return (
-      <div className="flex flex-col gap-4 w-full items-center">
-        <h1 className="text-2xl text-white font-['Angkor']">Your Friend List:</h1>
-        <div className="w-full flex flex-col gap-2 overflow-y-auto scrollbar-hide max-h-[560px]">
+      <div className="flex flex-col md:gap-3 lg:gap-4 w-full h-full items-center">
+        <h1 className="md:text-xl lg:text-2xl text-white font-['Angkor']">Your Friend List:</h1>
+        <div className="w-full flex flex-col gap-2 overflow-y-auto scrollbar-hide md:max-h-full lg:max-h-[560px]">
           {friendSummaries.map((friend, key) =>
           (
             <div
