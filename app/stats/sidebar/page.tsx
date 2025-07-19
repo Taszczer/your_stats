@@ -80,7 +80,7 @@ export default function SideBar() {
         )
 
         return (
-            <div className="flex flex-col items-center h-[320px] md:h-screen w-screen md:min-w-[360px] md:w-[400px] rounded-bl-3xl rounded-br-3xl md:rounded-bl-[0px] md:rounded-tr-[24px] md:rounded-br-[24px] border-b-4 md:border-b-0 md:border-r-4 border-black bg-[#CC9614] relative overflow-hidden">
+            <div className=" flex flex-col items-center h-[320px] md:h-screen w-screen md:min-w-[360px] md:w-[400px] rounded-bl-3xl rounded-br-3xl md:rounded-bl-[0px] md:rounded-tr-[24px] md:rounded-br-[24px] border-b-4 md:border-b-0 md:border-r-4 border-black bg-[#CC9614] relative overflow-hidden">
                 <div className="flex flex-col gap-4 md:gap-7 items-center h-full w-full p-3 pt-9 md:p-6">
                     <div className="flex flex-row md:flex-col text-white text-center md:items-center gap-4 md:gap-5">
                         <div className="relative w-[80px] h-[80px] md:w-[184px] md:h-[184px]">

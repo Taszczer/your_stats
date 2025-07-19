@@ -106,11 +106,11 @@ export default function CsStats() {
 
         return (
             <>
-                <div className="flex flex-col items-center gap-8 px-4 py-12 w-full h-screen overflow-y-auto">
-                    <div>
+                <div className="flex flex-col items-center gap-8 px-4 py-12 w-full h-[880px] md:h-screen md:overflow-y-auto">
+                    <div className="w-full md:w-fit h-full">
                         <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full">
-                            <div className="flex flex-col w-full max-w-[400px] gap-8">
-                                <div className={`flex flex-col bg-white w-full ${isExpanded ? 'max-h-[392px]' : 'max-h-[244px]'} md:min-w-[328px] md:max-w-[400px] md:h-[440px] md:max-h-[440px] px-6 py-4 md:p-6 gap:3 md:gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]`}>
+                            <div className="flex flex-col w-full items-center gap-8">
+                                <div className={`flex flex-col bg-white w-full ${isExpanded ? 'max-h-[392px]' : 'max-h-[244px]'} w-full max-w-[400px] md:min-w-[328px] md:max-w-[400px] md:h-[440px] md:max-h-[440px] px-6 py-4 md:p-6 gap:3 md:gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]`}>
                                     <h1 className="w-full text-center text-base md:text-xl font-['Angkor'] text-[#CC9614]">Total stats</h1>
                                     <ol className={`flex flex-col ${isExpanded ? 'max-h-[391px]' : 'max-h-[144px]'} md:max-h-full overflow-clip gap-3 md:gap-4 text-base md:text-xl font-medium`}>
                                         <li className="flex flex-row gap-3">
@@ -153,7 +153,7 @@ export default function CsStats() {
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col bg-white w-full md:min-w-[328px] md:max-w-[440px] md:h-[388px] px-6 py-4 md:p-6 gap-3 md:gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]">
+                                <div className="flex flex-col bg-white w-full max-w-[400px] md:min-w-[328px] md:max-w-[440px] md:h-[388px] px-6 py-4 md:p-6 gap-3 md:gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]">
                                     <h1 className="w-full text-center text-base md:text-xl font-['Angkor'] text-[#CC9614]">Special Situational Stats</h1>
                                     <ol className="flex flex-col gap-3 md:gap-4 text-base md:text-xl font-medium just">
                                         <li className="flex flex-row gap-3">
@@ -314,8 +314,7 @@ export default function CsStats() {
                                 </div>
                             </div>
                         </div> 
-                        
-                        <div className="flex w-full items-center justify-center mt-8">
+                        <div className="flex w-full justify-center mt-8">
                             <GunStats data={data} />
                         </div>
                     </div>

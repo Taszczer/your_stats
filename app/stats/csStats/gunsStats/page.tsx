@@ -198,56 +198,57 @@ export default function GunStats(data:any) {
 
     return (
         <>
-          <div className="flex flex-col w-[1320px] max-w-[1320px] min-h-[300px] bg-white border-t-[1px] border-r-4 border-b-4 border-l-[1px] rounded-3xl gap-4 p-6"> 
-            {/* change width!!!! */}
-            <h1 className="w-full text-center text-xl font-['Angkor'] text-[#CC9614]">Gun Stats</h1>
-            <div className="flex flex-row gap-4 items-center">
+          <div className="flex flex-col w-full max-w-[400px] md:w-[1320px] md:max-w-[1320px] bg-white border-t-[1px] border-r-4 border-b-4 border-l-[1px] rounded-3xl gap-3 md:gap-4 px-6 py-4 md:p-6 mb-8"> 
+            <h1 className="w-full text-center text-base md:text-xl font-['Angkor'] text-[#CC9614]">Gun Stats</h1>
+            <div className="flex flex-row gap-3 md:gap-4 items-center flex-wrap">
               <div onClick={() => setSelectedCategory('pistols')} className="cursor-pointer">
               {guns === gunInfo.guns.pistols ?
-                <h1 className=" text-2xl font-semibold underline text-[#CC9614]">Pistols</h1>
+                <h1 className="text-xl md:text-2xl font-semibold underline text-[#CC9614]">Pistols</h1>
                 :
-                <h1 className=" text-xl font-semibold text-black">Pistols</h1>
+                <h1 className="text-base md:text-xl font-semibold text-black">Pistols</h1>
               }
               </div>
             
               <div onClick={() => setSelectedCategory('rifles')} className="cursor-pointer">
               {guns == gunInfo.guns.rifles ? 
-                <h1 className=" text-2xl font-semibold underline text-[#CC9614]">Rifles</h1>
+                <h1 className="text-xl md:text-2xl font-semibold underline text-[#CC9614]">Rifles</h1>
                 :
-                <h1 className=" text-xl font-semibold text-black">Rifles</h1>
+                <h1 className="text-base md:text-xl font-semibold text-black">Rifles</h1>
               }
               </div>
             
               <div onClick={() => setSelectedCategory('SMGs')} className="cursor-pointer">
               {guns === gunInfo.guns.SMGs ?
-                <h1 className=" text-2xl font-semibold underline text-[#CC9614]">SMGs</h1>
+                <h1 className="text-xl md:text-2xl font-semibold underline text-[#CC9614]">SMGs</h1>
                 :
-                <h1 className=" text-xl font-semibold text-black">SMGs</h1>                
+                <h1 className="text-base md:text-xl font-semibold text-black">SMGs</h1>                
               }
               </div>
               <div onClick={() => setSelectedCategory('Heavy')} className="cursor-pointer">
               {guns === gunInfo.guns.Heavy ?
-                <h1 className=" text-2xl font-semibold underline text-[#CC9614]">Heavy</h1>
+                <h1 className="text-xl md:text-2xl font-semibold underline text-[#CC9614]">Heavy</h1>
                 :
-                <h1 className=" text-xl font-semibold text-black">Heavy</h1>                
+                <h1 className="text-base md:text-xl font-semibold text-black">Heavy</h1>                
               }
               </div>
             
               <div onClick={() => setSelectedCategory('Other')} className="cursor-pointer">
               {guns === gunInfo.guns.Other ?
-                <h1 className=" text-2xl font-semibold underline text-[#CC9614]">Other</h1>
+                <h1 className="text-xl md:text-2xl font-semibold underline text-[#CC9614]">Other</h1>
                 :
-                <h1 className=" text-xl font-semibold text-black">Other</h1>                
+                <h1 className="text-base md:text-xl font-semibold text-black">Other</h1>                
               }
               </div>  
             </div>
             
-            <div className="flex flex-wrap flex-row w-full">
+            <div className="flex flex-wrap flex-row justify-center md:justify-normal w-full">
             {Object.values(guns).map((gun, key) => (
-              <div key={key} className="ml-7 mt-4 flex flex-col items-center px-3 py-6 gap-3 bg-[#FFF1E6] rounded-3xl border-r-4 border-b-4 border-[1px] min-w-[178px] w-[178px] border-black">
-                <h1 className="text-xl font-['Madimi_One']">{gun.name}</h1>
-                <Image src={gun.img} alt="gun_image" width={150} height={114} />
-                <p className="text-xl font-medium">Kills: <span className="font-['Madimi_One'] text-[#CC9614]">{gun.kills}</span></p>
+              <div key={key} className="ml-2 mr-2 md:ml-7 md:mr-0 mt-3 md:mt-4 flex flex-col items-center px-3 py-6 gap-3 bg-[#FFF1E6] rounded-3xl border-r-4 border-b-4 border-[1px] w-fit md:min-w-[178px] md:w-[178px] border-black">
+                <h1 className="text-base md:text-xl font-['Madimi_One']">{gun.name}</h1>
+                <div className="w-[100px] h-[76px] md:w-[150px] md:h-[114px]">
+                  <Image src={gun.img} alt="gun_image" width={150} height={114} />
+                </div>
+                <p className="text-base md:text-xl font-medium">Kills: <span className="font-['Madimi_One'] text-[#CC9614]">{gun.kills}</span></p>
               </div>
             ))}
             </div>
