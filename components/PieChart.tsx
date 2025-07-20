@@ -21,17 +21,21 @@ export default function CustomPieChart({
   data: { value: number }[];
 }) {
   const isMedium = useMediaQuery('(min-width: 768px)');
-  const isHuge = useMediaQuery('(min-width: 1024px)');
+  const isBig = useMediaQuery('(min-width: 1280px)');
+  const isHuge = useMediaQuery('(min-width: 1280px)');
 
   let innerRadius = 40;
   let outerRadius = 60;
 
-  if (isHuge) {
-    innerRadius = 60;
-    outerRadius = 90;
+  if (isBig) {
+    innerRadius = 58.5;
+    outerRadius = 85;
   } else if (isMedium) {
     innerRadius = 50;
     outerRadius = 75;
+  } else if (isHuge) {
+    innerRadius = 60;
+    outerRadius = 90;
   }
 
   return (
