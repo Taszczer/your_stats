@@ -21,9 +21,18 @@ export default function CustomPieChart({
   data: { value: number }[];
 }) {
   const isMedium = useMediaQuery('(min-width: 768px)');
+  const isHuge = useMediaQuery('(min-width: 1024px)');
 
-  const innerRadius = isMedium ? 60 : 40;
-  const outerRadius = isMedium ? 90 : 60;
+  let innerRadius = 40;
+  let outerRadius = 60;
+
+  if (isHuge) {
+    innerRadius = 60;
+    outerRadius = 90;
+  } else if (isMedium) {
+    innerRadius = 50;
+    outerRadius = 75;
+  }
 
   return (
     <ResponsiveContainer>

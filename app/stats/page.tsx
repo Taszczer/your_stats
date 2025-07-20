@@ -12,7 +12,7 @@ export default function Stats() {
      return (
         <div className="flex flex-col md:flex-row bg-[#FFF1E6] h-screen overflow-y-auto overflow-x-hidden md:overflow-y-hidden">
             <SideBar/>
-            <div className="flex-1">
+            <div className="w-full">
                 <CsStats/>
             </div>
         </div>

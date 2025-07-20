@@ -106,12 +106,12 @@ export default function CsStats() {
 
         return (
             <>
-                <div className="flex flex-col items-center gap-6 lg:gap-8 px-4 pb-8 lg:py-12 w-full h-[880px]  mt-6 md:mt-0 lg:h-screen md:overflow-y-auto">
+                <div className="flex flex-col items-center gap-6 lg:gap-8 px-4 pb-8 lg:py-12 w-full h-[880px] md:h-screen mt-6 md:mt-0 lg:h-screen md:overflow-y-auto">
                     <div className="w-full lg:w-fit h-full">
-                        <div className="flex flex-col lg:flex-row items-center md:items-start justify-center gap-6 lg:gap-8 w-full">
-                            <div className="flex flex-col md:flex-row lg:flex-col w-full h-full md:py-4 lg:py-0  items-center gap-6 md:gap-8">
-                                <div className={`flex flex-col bg-white w-full max-w-[400px] lg:h-[448px] lg:min-w-[300px] lg:max-h-[448px] lg:w-full lg:max-w-[341] px-6 py-4 lg:p-6 gap:3 md:gap-3 lg:gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]`}>
-                                    <h1 className="w-full text-center text-base md:text-xl font-['Angkor'] text-[#CC9614]">Total stats</h1>
+                        <div className="flex flex-col lg:flex-row items-center md:items-start justify-center gap-6 md:gap-4 lg:gap-8 w-full">
+                            <div className="flex flex-col md:flex-row lg:flex-col w-full h-full md:pt-4 lg:py-0 items-center md:items-start lg:items-center gap-6 md:gap-4 lg:gap-8">
+                                <div className={`flex flex-col bg-white w-full flex-1 max-w-[400px] lg:h-[448px] lg:min-w-[300px] lg:max-h-[448px] lg:w-full lg:max-w-[341] px-6 py-4 lg:p-6 gap:3 md:gap-3 lg:gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]`}>
+                                    <h1 className="w-full text-center text-base lg:text-xl font-['Angkor'] text-[#CC9614]">Total stats</h1>
                                     <ol className={`flex flex-col ${isExpanded ? 'max-h-[391px]' : 'max-h-[144px]'} md:max-h-full overflow-clip gap-3 lg:gap-4 text-base lg:text-xl font-medium`}>
                                         <li className="flex flex-row gap-3">
                                             <div className="h-full flex items-center"><span className="material-symbols-outlined text-xl lg:scale-[1.1667]">dropper_eye</span></div>
@@ -153,7 +153,7 @@ export default function CsStats() {
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col bg-white w-full max-w-[400px] lg:min-w-[328px] lg:max-w-[440px] lg:h-[388px] px-6 py-4 lg:p-6 gap-3 lg:gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]">
+                                <div className="flex flex-col bg-white w-full flex-1 max-w-[400px] lg:min-w-[328px] lg:max-w-[440px] lg:h-[388px] px-6 py-4 lg:p-6 gap-3 lg:gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]">
                                     <h1 className="w-full text-center text-base lg:text-xl font-['Angkor'] text-[#CC9614]">Special Situational Stats</h1>
                                     <ol className="flex flex-col gap-3 lg:gap-4 text-base lg:text-xl font-medium just">
                                         <li className="flex flex-row gap-3">
@@ -184,12 +184,12 @@ export default function CsStats() {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-6 lg:gap-8 w-full items-center lg:items-start h-full">
+                             <div className="flex flex-col gap-6 md:gap-4 lg:gap-8 w-full items-center lg:items-start h-full">
                                 <div className="flex flex-row gap-3 overflow-clip overflow-x-auto lg:gap-9 bg-white w-full h-[252px] max-w-[400px] md:max-w-full md:h-fit lg:w-[900px] lg:max-w-[900px] lg:h-[324px] p-4 lg:py-4 rounded-3xl border-black border-t-[1px] border-r-4 border-b-4 border-l-[1px]">
 
                                     <div className="flex flex-col gap-2 lg:gap-4 w-full h-full items-center">
                                         <h1 className="text-base lg:text-xl font-['Madimi_One'] text-black">Win Rate:</h1>
-                                        <div className="w-[180px] h-[180px] lg:w-[200px] lg:h-[200px]">
+                                        <div className="w-[180px] h-[180px] md:w-full lg:w-[200px] lg:h-[200px]">
                                             <CustomPieChart percentage={winrate.toString() + ' %'} colors={winRateColors} data={winRateData} textColor={winRateTextColor}/>
                                         </div>
                                         <div className="flex flex-row gap-3">
@@ -207,7 +207,7 @@ export default function CsStats() {
 
                                     <div className="flex flex-col gap-2 lg:gap-4 w-full h-full items-center">
                                         <h1 className="text-base lg:text-xl font-['Madimi_One'] text-black">Hitted shots:</h1>
-                                        <div className="w-[180px] h-[180px] lg:w-[200px] lg:h-[200px]">
+                                        <div className="w-[180px] h-[180px] md:w-full lg:w-[200px] lg:h-[200px]">
                                             <CustomPieChart percentage={hittedShots.toString() + ' %'} colors={hittedShotsColors} data={hittedShotsData} textColor={hittedShotsTextColor}/>
                                         </div>
                                         <div className="flex flex-row gap-3">
@@ -225,7 +225,7 @@ export default function CsStats() {
 
                                     <div className="flex flex-col gap-2 lg:gap-4 w-full h-full items-center">
                                         <h1 className="text-base lg:text-xl font-['Madimi_One'] text-black">Headshot Kill:</h1>
-                                        <div className="w-[180px] h-[180px] lg:w-[200px] lg:h-[200px]">
+                                        <div className="w-[180px] h-[180px] md:w-full lg:w-[200px] lg:h-[200px]">
                                             <CustomPieChart percentage={headShotKills.toString() + ' %'} colors={headShotKillsColors} data={headShotKillsData} textColor={headShotKillsTextColor} />
                                         </div>
                                         <div className="flex flex-row gap-3">
@@ -313,7 +313,7 @@ export default function CsStats() {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
                             </div>
                         </div> 
                         <div className="flex w-full justify-center mt-8">
