@@ -20,6 +20,7 @@ export default function SideBar() {
     const { data, isPending, isError, error } = useQuery<userResponse>({
         queryKey: ['YourStats'],
         queryFn: async () => {
+            await new Promise((provide) => setTimeout(provide, 10000))
             const res = await axios.get(`/api/steam/ISteamUser/GetPlayerSummaries/v0002/?key=297EF931003801AA8E111DF1E8FAC18B&steamids=${id}`);
             return res.data
         },
@@ -91,7 +92,7 @@ export default function SideBar() {
                             className="object-cover rounded-full border-r-4 border-b-4 border-[1px] lg:border-r-8 lg:border-b-8 lg:border-l-2 lg:border-t-2 border-black"
                         />
                         </div>  
-                        <div className="flex flex-col justify-center">
+                        <div className="flex flex-col items-start md:items-center justify-center">
                             <div className="text-start md:text-center">
                                 <h1 className="text-xl xl:text-2xl font-['Angkor']">{user.personaname}</h1>
                                 <p className="text-base xl:text-base">#{user.steamid}</p>

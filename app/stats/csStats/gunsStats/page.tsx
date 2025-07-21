@@ -241,7 +241,7 @@ export default function GunStats(data:any) {
               </div>  
             </div>
             
-            <div className="flex flex-wrap flex-row justify-center xl:justify-normal w-full">
+            <div className="flex flex-wrap flex-row justify-center w-full">
             {Object.values(guns).map((gun, key) => (
               <div key={key} className="ml-2 mr-2 lg:ml-5 xl:ml-7 lg:mr-0 mt-3 xl:mt-4 flex flex-col items-center px-3 py-6 gap-3 bg-[#FFF1E6] rounded-3xl border-r-4 border-b-4 border-[1px] w-fit xl:min-w-[178px] xl:w-[178px] border-black">
                 <h1 className="text-base xl:text-xl font-['Madimi_One']">{gun.name}</h1>

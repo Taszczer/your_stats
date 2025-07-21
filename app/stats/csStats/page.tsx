@@ -29,6 +29,7 @@ export default function CsStats() {
     const { data, isPending, isError, error } = useQuery<userStatsResponse>({
         queryKey: ['Stats'],
         queryFn: async () => {
+            await new Promise((provied)=> setTimeout(provied, 10000))
             const res = await axios.get<userStatsResponse>(
                 `/api/steam/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=297EF931003801AA8E111DF1E8FAC18B&steamid=${id}`,
             )
@@ -155,7 +156,7 @@ export default function CsStats() {
 
                                 <div className="flex flex-col bg-white w-full flex-1 max-w-[400px] xl:min-w-[328px] xl:max-w-[400px] lg:h-[388px] px-6 py-4 lg:p-6 gap-3 lg:gap-4 rounded-3xl border-b-4 border-r-4 border-t-[1px] border-l-[1px]">
                                     <h1 className="w-full text-center text-base xl:text-xl font-['Angkor'] text-[#CC9614]">Special Situational Stats</h1>
-                                    <ol className="flex flex-col gap-3 lg:gap-4 text-base xl:text-xl font-medium just">
+                                    <ol className="flex flex-col gap-3 lg:gap-4 text-base xl:text-xl font-medium">
                                         <li className="flex items-center flex-row gap-3">
                                             <div className="h-full flex items-center"><span className="material-symbols-outlined xl:scale-[1.1667]">dropper_eye</span></div>
                                             Kills using knife: <span className="text-[#CC9614] font-['Madimi_One'] mt-[2px]">{userData['total_kills_knife']}</span>
