@@ -5,6 +5,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
+                dynamo: ['Dynamo', 'sans-serif'],
                 material: ['"Material Symbols Outlined"'],
             },
         },

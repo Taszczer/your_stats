@@ -29,7 +29,6 @@ export default function CsStats() {
     const { data, isPending, isError, error } = useQuery<userStatsResponse>({
         queryKey: ['Stats'],
         queryFn: async () => {
-            await new Promise((provied)=> setTimeout(provied, 10000))
             const res = await axios.get<userStatsResponse>(
                 `/api/steam/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=297EF931003801AA8E111DF1E8FAC18B&steamid=${id}`,
             )
