@@ -1,31 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Angkor&family=Madimi+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
-@import 'material-symbols/outlined.css';
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Angkor&family=Madimi+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
+@import "material-symbols/outlined.css";
 @import "tailwindcss";
 
-  @font-face {
-    font-family: "Dynamo";
-    src: url('/fonts/Dynamo-EF-Shadow-Bold.otf');
-  }
+@font-face {
+  font-family: "Dynamo";
+  src: url("/fonts/Dynamo-EF-Shadow-Bold.otf");
+}
 
-  @font-face {
-    font-family: "Futura";
-    src: url('/fonts/FuturaBQ-ExtraBoldShaded.otf');
-  }
+@font-face {
+  font-family: "Futura";
+  src: url("/fonts/FuturaBQ-ExtraBoldShaded.otf");
+}
 
-@theme{
-  --font-futura: Futura, 'sans-serif';
-  --font-dynamo: Dynamo, 'sans-serif'
+@theme {
+  --font-futura: Futura, "sans-serif";
+  --font-dynamo: Dynamo, "sans-serif";
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
-input[type='number'] {
-    -moz-appearance:textfield;
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -33,6 +33,6 @@ input[type='number'] {
 }
 
 .scrollbar-hide {
-  -ms-overflow-style: none; 
+  -ms-overflow-style: none;
   scrollbar-width: none;
 }

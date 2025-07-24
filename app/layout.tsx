@@ -14,12 +14,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={` bg-[#FFF1E6] antialiased overflow-hidden`}
-      >
-        <ReactQueryProvider>
-          {children}
-          </ReactQueryProvider>
+      <body className={` bg-[#FFF1E6] antialiased overflow-hidden`}>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   );

@@ -1,58 +1,72 @@
-'use client'
+"use client";
 
-import FriendSkeleton from "@/components/skeletons/FriendSkeleton"
-import { oneFriendResponse, User, UserFriends, userFriendsResponse, userResponse } from "@/lib/types"
-import { useQueries, useQuery } from "@tanstack/react-query"
-import axios from "axios"
-import Image from "next/image"
+import FriendSkeleton from "@/components/skeletons/FriendSkeleton";
+import { oneFriendResponse, userFriendsResponse } from "@/lib/types";
+import { useQueries, useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-export default function FriendList(userId: string | any) {
-  
-  const router = useRouter()
-    
+export default function FriendList({ userId }: { userId: string }) {
+  const router = useRouter();
+
   const { data, isPending, isError, error } = useQuery<userFriendsResponse>({
-    queryKey: ['FriendList'],
+    queryKey: ["FriendList"],
     queryFn: async () => {
-        const res = await axios.get(`/api/steam/ISteamUser/GetFriendList/v0001/?key=297EF931003801AA8E111DF1E8FAC18B&steamid=${Object.values(userId)}&relationship=friend`)
-        return res.data
-    }
-  })
+      const res = await axios.get(
+        `/api/steam/ISteamUser/GetFriendList/v0001/?key=297EF931003801AA8E111DF1E8FAC18B&steamid=${userId}&relationship=friend`
+      );
+      return res.data;
+    },
+    retry: false,
+  });
 
   const friendSummaries = useQueries({
     queries: (data?.friendslist.friends || []).map((friend) => ({
-      queryKey: ['friendSummary', friend.steamid],
+      queryKey: ["friendSummary", friend.steamid],
       queryFn: async () => {
-        const res = await axios.get<oneFriendResponse>(`/api/steam/ISteamUser/GetPlayerSummaries/v0002/?key=297EF931003801AA8E111DF1E8FAC18B&steamids=${friend.steamid}`)
-        return res.data.response.players[0]
-    },
-    staleTime: 1000 * 60 * 5,
-   })),
-  })
+        const res = await axios.get<oneFriendResponse>(
+          `/api/steam/ISteamUser/GetPlayerSummaries/v0002/?key=297EF931003801AA8E111DF1E8FAC18B&steamids=${friend.steamid}`
+        );
+        return res.data.response.players[0];
+      },
+      staleTime: 1000 * 60 * 5,
+      retry: false,
+    })),
+  });
 
-  const allLoading = friendSummaries.some(q => q.isLoading)
-   
+  const allLoading = friendSummaries.some((q) => q.isLoading);
+
   if (isPending || allLoading) {
-    return (
-      <FriendSkeleton/>
-    )    
+    return <FriendSkeleton />;
   }
-  
-  function findFriend(id?:string) {
-    router.push(`/stats?id=${id}`)
+
+  if (isError) {
+    console.log(error);
+    return (
+      <>
+        <h1 className="md:text-xl xl:text-2xl text-white font-['Angkor'] text-center">
+          Your steam friend list is hidden :(
+        </h1>
+      </>
+    );
+  }
+
+  function findFriend(id?: string) {
+    router.push(`/stats?id=${id}`);
     setTimeout(() => {
       window.location.reload();
     }, 100);
   }
-  
-  if (data) {
 
+  if (data) {
     return (
       <div className="flex flex-col md:gap-3 xl:gap-4 w-full h-full items-center">
-        <h1 className="md:text-xl xl:text-2xl text-white font-['Angkor']">Your Friend List:</h1>
+        <h1 className="md:text-xl xl:text-2xl text-white font-['Angkor']">
+          Your Friend List:
+        </h1>
         <div className="w-full flex flex-col gap-2 overflow-y-auto scrollbar-hide md:max-h-full xl:max-h-[560px]">
-          {friendSummaries.map((friend, key) =>
-          (
+          {friendSummaries.map((friend, key) => (
             <div
               key={friend.data?.steamid || key}
               onClick={() => findFriend(friend.data?.steamid)}
@@ -66,15 +80,16 @@ export default function FriendList(userId: string | any) {
                   height={32}
                   className="rounded-full"
                 />
-              ) }
-              <h1 className="font-semibold text-xl">{friend.data?.personaname }</h1>
+              )}
+              <h1 className="font-semibold text-xl">
+                {friend.data?.personaname}
+              </h1>
             </div>
-          ))
-          }
+          ))}
         </div>
       </div>
-    )
+    );
   }
 
-  return null
+  return null;
 }
