@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ReactQueryProvider from "@/components/provider/page";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "YourStats",
@@ -15,7 +16,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={` bg-[#FFF1E6] antialiased overflow-hidden`}>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ReactQueryProvider>
+          {children}
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+          />
+        </ReactQueryProvider>
       </body>
     </html>
   );

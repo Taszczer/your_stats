@@ -304,7 +304,7 @@ export default function CsStats() {
               <div className="flex flex-col gap-6 md:gap-4 xl:gap-6 w-full items-center xl:items-start xl:max-w-[800px] h-full">
                 <div
                   className="flex flex-row sm:gap-3 lg:gap-2 xl:gap-3 overflow-clip overflow-x-auto bg-white w-full h-[252px] max-w-[400px] md:max-w-full md:h-fit lg:w-full lg:max-w-full lg:min-w-[550px] p-4 xl:py-4 rounded-3xl border-black 
-                                border-t-[1px] border-r-4 border-b-4 border-l-[1px]"
+                  border-t-[1px] border-r-4 border-b-4 border-l-[1px]"
                 >
                   <div className="flex flex-col gap-2 xl:gap-4 w-full h-full items-center">
                     <h1 className="text-base xl:text-xl font-['Madimi_One'] text-black">
