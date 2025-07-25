@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## CS2 & Steam Stats Web App
 
-## Getting Started
+This project is a web application that provides users with detailed statistics for Counter-Strike 2 (CS2),
+along with selected Steam platform data.
 
-First, run the development server:
+## 🛠 Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Frontend:** Next.js, TypeScript, Tailwind CSS
+- **Design Tools:** Figma, Krita
+- **API/Data Sources:** [Steam Web API](https://developer.valvesoftware.com/wiki/Steam_Web_API)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Live CS2 player stats
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Steam profile and game information
 
-## Learn More
+- Nice and responsive UI
 
-To learn more about Next.js, take a look at the following resources:
+- Fast and efficient performance
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Design & Art
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The entire website, including UI/UX design, was crafted by me from scratch.  
+All illustrations and graphics displayed on the site were hand-drawn by me.
 
-## Deploy on Vercel
+## 📸 Screenshots
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Home Page](./public/screenshots/home.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![Stats Page](./public/screenshots/stats.png)
+
+## 🔗 Live Demo
+
+Check out the live app: 88888888888
+
+## 🙋‍♂️ About Me
+
+Hi! I'm Dmytrij — a web developer, UI/UX designer, and occasionally a digital artist.
+This project is a blend of my passions: gaming, coding, web designe and art.
+
+- Portfolio: ----
