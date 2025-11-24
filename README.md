@@ -29,14 +29,3 @@ All illustrations and graphics displayed on the site were hand-drawn by me.
 ![Home Page](./public/screenshots/home.png)
 
 ![Stats Page](./public/screenshots/stats.png)
-
-## 🔗 Live Demo
-
-Check out the live app: 88888888888
-
-## 🙋‍♂️ About Me
-
-Hi! I'm Dmytrij — a web developer, UI/UX designer, and occasionally a digital artist.
-This project is a blend of my passions: gaming, coding, web designe and art.
-
-- Portfolio: ----
