@@ -19,11 +19,9 @@ export default function SideBar() {
   const id = searchParams.get("id");
 
   const { data, isPending } = useQuery<userResponse>({
-    queryKey: ["YourStats"],
+    queryKey: ["YourStats", id],
     queryFn: async () => {
-      const res = await axios.get(
-        `/api/steam/ISteamUser/GetPlayerSummaries/v0002/?key=297EF931003801AA8E111DF1E8FAC18B&steamids=${id}`
-      );
+      const res = await axios.get(`/api/steam/player?id=${id}`);
       return res.data;
     },
   });

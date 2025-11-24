@@ -13,35 +13,28 @@ export default function FriendList({ userId }: { userId: string }) {
   const { data, isPending, isError, error } = useQuery<userFriendsResponse>({
     queryKey: ["FriendList"],
     queryFn: async () => {
-      const res = await axios.get(
-        `/api/steam/ISteamUser/GetFriendList/v0001/?key=297EF931003801AA8E111DF1E8FAC18B&steamid=${userId}&relationship=friend`
-      );
+      const res = await axios.get(`/api/steam/friends?id=${userId}`);
       return res.data;
     },
-    retry: false,
   });
 
   const friendSummaries = useQueries({
     queries: (data?.friendslist.friends || []).map((friend) => ({
       queryKey: ["friendSummary", friend.steamid],
       queryFn: async () => {
-        const res = await axios.get<oneFriendResponse>(
-          `/api/steam/ISteamUser/GetPlayerSummaries/v0002/?key=297EF931003801AA8E111DF1E8FAC18B&steamids=${friend.steamid}`
-        );
+        const res = await axios.get(`/api/steam/player?id=${friend.steamid}`);
         return res.data.response.players[0];
       },
-      staleTime: 1000 * 60 * 5,
       retry: false,
     })),
   });
-
   const allLoading = friendSummaries.some((q) => q.isLoading);
 
   if (isPending || allLoading) {
     return <FriendSkeleton />;
   }
 
-  if (isError) {
+  if (isError || friendSummaries.length === 0) {
     console.log(error);
     return (
       <>

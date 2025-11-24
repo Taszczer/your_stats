@@ -27,21 +27,21 @@ export default function CsStats() {
   const id = searchParams.get("id");
 
   const { data, isPending, isError, error } = useQuery<userStatsResponse>({
-    queryKey: ["Stats"],
+    queryKey: ["Stats", id],
     queryFn: async () => {
-      const res = await axios.get<userStatsResponse>(
-        `/api/steam/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=297EF931003801AA8E111DF1E8FAC18B&steamid=${id}`
-      );
+      const res = await axios.get(`/api/steam/stats?id=${id}`);
       return res.data;
     },
-    retry: false,
   });
 
   if (isPending) {
     return <Skeleton />;
   }
 
-  if (isError) {
+  if (
+    isError ||
+    (Object.keys(data).length === 0 && data.constructor === Object)
+  ) {
     console.log(error);
     return (
       <div className="w-full h-full flex flex-col justify-center items-center mt-6 md:mt-0 gap-5">
@@ -60,7 +60,7 @@ export default function CsStats() {
     );
   }
 
-  if (data) {
+  if (data && data.playerstats) {
     const statsArray = data.playerstats.stats;
     const userData: Record<string, any> = {};
 
